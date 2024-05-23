@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Persetujuan</title>
+  <!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://aprilhxn.github.io/khadija-birthday">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Happy Birthday">
+<meta property="og:description" content="Khadija Maisarah">
+<meta property="og:image" content="https://i.ibb.co.com/Q7gDrGh/20240516-005919-picsay.jpg">
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="aprilhxn.github.io">
+<meta property="twitter:url" content="https://aprilhxn.github.io/khadija-birthday">
+<meta name="twitter:title" content="Happy Birthday">
+<meta name="twitter:description" content="Khadija Maisarah">
+<meta name="twitter:image" content="https://i.ibb.co.com/Q7gDrGh/20240516-005919-picsay.jpg">
+<!-- Meta Tags Generated via https://www.opengraph.xyz -->
+<meta property="og:title" content="Happy Birthday" />
+<meta property="og:site_name" content="https://aprilhxn.github.io/khadija-birthday"/>
+<meta property="og:description" content="Khadija Maisarah" />
+<meta property="og:image" content="https://i.ibb.co.com/Q7gDrGh/20240516-005919-picsay.jpg" />
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 10%;
+            background-color: #FFDAB9;
+        }
+
+        #container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+
+        #countdown {
+            font-size: 45px;
+            color: black;
+        }
+
+        .description {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>COUNTDOWN TO YOUR BIRTHDAY</h1>
+        <div id="countdown-container">
+            <h1 id="countdown"></h1>
+        </div>
+        <div class="description">
+            Something will open automatically,
+            You'll find out soon enough. Stay tuned!
+            ☺️☺️☺️
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Set the target date (28 May 2024, 23:00 WIB)
+            var targetDate = new Date('2024-05-28T23:00:00+07:00').getTime();
+
+            // Update the countdown every 1 second
+            var countdownFunction = setInterval(function() {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the target date
+                var distance = targetDate - now;
+
+                // Time calculations for days, hours, minutes, and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="countdown"
+                document.getElementById("countdown").innerHTML = days + "d " + hours + "h " 
+                + minutes + "m " + seconds + "s ";
+
+                // If the countdown is over, redirect to main_content.html
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    window.location.href = "content.html";
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
