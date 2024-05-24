@@ -25,22 +25,31 @@
     <title>Countdown Timer</title>
     <style>
         body {
+            background-image: url('wp.jpg');
+            background-size: cover; /* Untuk menyesuaikan ukuran gambar dengan layar */
+            background-position: center; /* Untuk memposisikan gambar di tengah layar */
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 10%;
-            background-color: #FFDAB9;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #container {
-            background: #fff;
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.75); /* Transparansi 50% */
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             display: inline-block;
+            position: relative;
+            z-index: 2;
         }
 
         #countdown {
-            font-size: 45px;
+            font-size: 3em;
             color: black;
         }
 
@@ -49,21 +58,127 @@
             font-size: 1.2em;
             color: #333;
         }
+
+        .audio-container {
+            background: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0;
+            position: relative;
+            z-index: 2;
+            margin-top: 20px; /* Menambahkan margin atas */
+        }
+
+        /* CSS untuk animasi salju */
+      .snowflake {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    animation: snowfall linear infinite;
+    top: -10px; /* Mulai dari atas layar */
+    left: calc(100vw * var(--random-x)); /* Acak posisi horizontal */
+    animation-play-state: paused; /* Animasi dimulai dalam keadaan paused */
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-10%);
+    }
+    100% {
+        transform: translateY(110vh);
+    }
+}
     </style>
 </head>
 <body>
     <div id="container">
-        <h1>COUNTDOWN TO YOUR BIRTHDAY</h1>
+        <h1>Countdown To Your Birthday</h1>
         <div id="countdown-container">
             <h1 id="countdown"></h1>
+            <div class="audio-container">
+                 <div class="description">
+                    While you wait, play music to see the magic
+                </div>
+                <br>
+                <audio id="audio" controls>
+                    <source src="your-music-file.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
         <div class="description">
-            Something will open automatically,
-            You'll find out soon enough. Stay tuned!
-            ☺️☺️☺️
+            When the time comes, something will open automatically. <br>
+            You'll find out soon enough, stay tuned!
         </div>
     </div>
+    <!-- Animasi Salju -->
+    <div id="snowfall-container"></div>
     <script>
+    // Tambahkan salju secara dinamis ke dalam halaman
+function createSnowflakes() {
+    const snowfallContainer = document.getElementById("snowfall-container");
+    const numSnowflakes = 30; // Jumlah salju yang ingin ditampilkan
+
+    for (let i = 0; i < numSnowflakes; i++) {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.style.setProperty('--random-x', Math.random()); // Atur variabel CSS untuk posisi horizontal acak
+        snowflake.style.animationDuration = Math.random() * 5 + 5 + "s"; // Durasi animasi antara 5 dan 10 detik
+        snowflake.style.animationDelay = Math.random() * 5 + "s"; // Penundaan animasi antara 0 dan 5 detik
+        snowfallContainer.appendChild(snowflake);
+    }
+}
+
+// Tambahkan salju secara dinamis ke dalam halaman
+function createSnowflakes() {
+    const snowfallContainer = document.getElementById("snowfall-container");
+    const numSnowflakes = 30; // Jumlah salju yang ingin ditampilkan
+
+    for (let i = 0; i < numSnowflakes; i++) {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.style.setProperty('--random-x', Math.random()); // Atur variabel CSS untuk posisi horizontal acak
+        snowflake.style.animationDuration = Math.random() * 5 + 5 + "s"; // Durasi animasi antara 5 dan 10 detik
+        snowflake.style.animationDelay = Math.random() * 5 + "s"; // Penundaan animasi antara 0 dan 5 detik
+        snowfallContainer.appendChild(snowflake);
+    }
+}
+
+// Panggil fungsi untuk membuat salju saat halaman dimuat
+document.addEventListener("DOMContentLoaded", function() {
+    createSnowflakes();
+
+    // Dapatkan elemen audio
+    const audio = document.getElementById("audio");
+
+  // Ketika audio diputar, mulai animasi salju
+    audio.addEventListener("play", function() {
+        const snowflakes = document.querySelectorAll(".snowflake");
+        snowflakes.forEach(function(snowflake) {
+            snowflake.style.animationPlayState = "running";
+        });
+    });
+
+    // Ketika audio dijeda atau berhenti, hentikan animasi salju
+    audio.addEventListener("pause", function() {
+        const snowflakes = document.querySelectorAll(".snowflake");
+        snowflakes.forEach(function(snowflake) {
+            snowflake.style.animationPlayState = "paused";
+        });
+    });
+
+    // Jika audio dijeda atau berhenti, hentikan animasi salju juga
+    audio.addEventListener("ended", function() {
+        const snowflakes = document.querySelectorAll(".snowflake");
+        snowflakes.forEach(function(snowflake) {
+            snowflake.style.animationPlayState = "paused";
+        });
+    });
+});
+
+        // JavaScript untuk kiraan mundur
         document.addEventListener("DOMContentLoaded", function() {
             // Set the target date (28 May 2024, 23:00 WIB)
             var targetDate = new Date('2024-05-28T23:00:00+07:00').getTime();
@@ -90,7 +205,7 @@
                 // If the countdown is over, redirect to main_content.html
                 if (distance < 0) {
                     clearInterval(countdownFunction);
-                    window.location.href = "content.html";
+                    window.location.href = "main_content.html";
                 }
             }, 1000);
         });
